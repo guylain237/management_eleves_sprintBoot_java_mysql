@@ -1,0 +1,84 @@
+<html xmlns:th="httP://thymeleaf.org" >
+<head>
+<meta charset="ISO-8859-1" />
+<title>eleves</title>
+<link rel="stylesheet" 
+href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+
+
+
+<nav class="navbar navbar-expand-lg  navbar-light bg-primary fixed-top ">
+  <a class="navbar-brand" href="#">systeme de management des eleves</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" th:href="@{/eleves/new}">Accueil <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/eleves}">Eleves</a>
+      </li>
+     
+      
+    </ul>
+     <form class="form-inline my-2 my-lg-0" th:action="@{/eleves/rechercher}" th:object="${recherche}" method="GET">
+   <!--   <input class="form-control mr-sm-2" type="text" th:field="*{recherche}" placeholder="recherche par nom ou email" aria-label="Search">
+   --> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button> 
+</form>
+
+  </div>
+</nav>
+<br>
+<br>
+<div class="container">
+
+  <div class="table table-striped table-bordered my-5">
+ <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card my-5"> 
+   <h1> Listes des eleves </h1>
+  <a th:href="@{/eleves/new}" class="btn btn-primary btn-sm my-5"> ajouter un eleves</a>
+  </div>
+<table class="table table-striped table-bordered  my-80">
+  <thead class="table-primary">
+    <tr >
+    <th scope="col"> Photo</th>
+      <th scope="col" >Nom</th>
+      <th scope="col">Prenom</th>
+      <th scope="col">Email</th>
+      <th scope="col" class="bg-danger">Action</th>
+    </tr>
+  </thead>
+      <tbody>
+   <tr th:each="eleve : ${eleves}">
+  <td>
+    <img th:src="@{'/eleves/image/' + ${eleve.id}}" alt="Photo de l'élève" width="50" />
+    
+</td>
+
+    <td th:text="${eleve.nom}"></td>
+    <td th:text="${eleve.prenom}"></td>
+    <td th:text="${eleve.email}"></td>
+    <td>
+    <a th:href="@{/eleves/edit/{id}(id=${eleve.id})}" class="btn btn-primary"> Modifier</a>
+    <a th:href="@{/eleves/{id}(id=${eleve.id})}" class="btn btn-danger"> Supprimer </a>
+    </td>
+</tr>
+
+  </tbody>
+</table>
+</div>
+</div>
+</body>
+</html>
